@@ -1,0 +1,29 @@
+Questão 1
+
+O raciocínio abaixo é referente ao item de soma de dias.
+
+01) 1989 - NB
+02) 1990 - NB
+03) 1991 - NB
+04) 1992 - B
+05) 1993 - NB
+06) 1994 - NB
+07) 1995 - NB
+08) 1996 - B
+09) 1997 - NB
+10) 1998 - NB
+11) 1999 - NB
+12) 2000 - B
+13) 2001 - NB
+14) 2002 - NB
+15) 2003 - NB
+16) 2004 - B
+
+5/4 = 1, 5%4 = 1
+7/4 = 1, 7%4 = 3
+9/4 = 2, 9%4 = 1
+11/4 = 2
+13/4 = 3
+15/4 = 3
+
+Ou seja, em x anos, a quantidade de bissextos é igual a x/4
