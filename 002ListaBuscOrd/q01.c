@@ -11,7 +11,9 @@ ordenados alfabeticamente.*/
 #define QtdLetras 255
 
 void normalizarMinimizar(char str[]);
-void insertionSortParaStrings(char strCopia[][QtdLetras], char strOriginal[][QtdLetras], int qtNomes);
+void insertionSortListaStrings(char strCopia[][QtdLetras], char strOriginal[][QtdLetras]);
+void insertionSortString(char referencia[], char strLista[][QtdLetras], int n);
+int maiorString(char listaDeStrings[][QtdLetras]);
 
 // elemento de um array de strings: lista[indiceNome][indiceLetras]
 
@@ -33,7 +35,8 @@ int main () {
     
     // fazer as comparações e trocas no vetor auxiliar, 
     // todo índice trocado no auxiliar também deve ser trocado no principal simultaneamente
-    insertionSortParaStrings(listaAux, listaNomes, QtdNomes);
+    insertionSortListaStrings(listaAux, listaNomes);
+    
     for(int i = 0; i < QtdNomes; i++) //teste
     {
         printf("\n%s", listaNomes[i]);    
@@ -68,30 +71,63 @@ void normalizarMinimizar(char str[]){
     }
 }
 
-void insertionSortParaStrings(char strCopia[][QtdLetras], char strOriginal[][QtdLetras], int qtNomes)
+void insertionSortListaStrings(char strCopia[][QtdLetras], char strOriginal[][QtdLetras])
 {
-    // Não está funcionando ainda, as strings não trocam de posição
-    // Talvez a função strcpy não seja a mais adequada, preciso testar com outra
-    // ou mudar as strings de posição sem utilizar funções da biblioteca string.h
-    int i, j;
-    char key[QtdLetras];
-    char keyOriginal[QtdLetras];
-    for (i = 1; i < qtNomes; i++) 
+    char strRef[QtdLetras];
+    int maiorStr;
+
+    maiorStr = maiorString(strCopia);
+
+    // no for abaixo, o countChar < 1 faz com que a ordenação ocorra apenas
+    // para a primeira letra da lista de strings.
+    // Como fazer a ordenação para todas as letras sem que a letra seguinte
+    // desfaça a ordenação realizada na letra anterior?
+    for(int countChar = 0; countChar < 1; countChar++)
     {
-	strcpy(key, strCopia[i]); // key = strCopia[i];
-	strcpy(keyOriginal, strOriginal[i]);
+        for(int countNome = 0; countNome < QtdNomes; countNome++)
+        {
+            strRef[countNome] = strCopia[countNome][countChar];
+        }
+
+        insertionSortString(strRef, strOriginal, QtdNomes);
+
+        for (int i = 0; strRef[i] != '\0'; i++)
+        {
+            strRef[i] = '\0';
+        }
+        
+    }
+}
+
+void insertionSortString(char referencia[], char strLista[][QtdLetras], int n)
+{
+    int i, key, j;
+    char keyString[QtdLetras];
+    for (i = 1; i < n; i++) 
+    {
+        key = referencia[i];
+        strcpy(keyString, strLista[i]);
         j = i - 1;
  
-        /* Move elementos de strCopia[0..i-1], que são
-          maiores que key, para uma posição à frente
-          da posição atual*/
-        while (j >= 0 && strCopia[i][j] > key[j])
+        while (j >= 0 && referencia[j] > key) 
         {
-            strcpy(strCopia[j + 1], strCopia[j]);  //strCopia[j + 1] = strCopia[j];
-	    strcpy(strOriginal[j + 1], strOriginal[j]);
+            referencia[j + 1] = referencia[j];
+            strcpy(strLista[j+1], strLista[j]);
             j = j - 1;
         }
-        strcpy(strCopia[j + 1], key); //strCopia[j + 1] = key;
-	strcpy(strOriginal[j + 1], keyOriginal);
+        referencia[j + 1] = key;
+        strcpy(strLista[j+1], keyString);
     }
+}
+
+int maiorString(char listaDeStrings[][QtdLetras]){
+    int maior = strlen(listaDeStrings[0]);
+
+    for (int i = 0; i < QtdNomes; i++)
+    {
+        if(strlen(listaDeStrings[i]) > maior)
+            maior = strlen(listaDeStrings[i]);
+    }
+
+    return maior;
 }

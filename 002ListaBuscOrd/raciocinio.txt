@@ -1,0 +1,9 @@
+q01.
+
+Como ordenar as strings?
+
+1) Gerar uma string formada por uma letra de cada nome, sendo que todas tem o mesmo índice.
+
+2) Aplicar a ordenação do tipo insertion na string gerada no item um e refletir as trocas na lista de nomes.
+
+3) Repetir o procedimento anterior para todas as letras seguintes (e evitar que  as letras anteriores saiam de ordem alfabética).
